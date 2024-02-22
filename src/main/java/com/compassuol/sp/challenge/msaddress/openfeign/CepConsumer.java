@@ -1,6 +1,6 @@
 package com.compassuol.sp.challenge.msaddress.openfeign;
 
-import com.compassuol.sp.challenge.msaddress.domain.Address;
+import com.compassuol.sp.challenge.msaddress.domain.Entity.Address;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
