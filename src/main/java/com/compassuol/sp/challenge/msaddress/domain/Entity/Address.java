@@ -1,4 +1,4 @@
-package com.compassuol.sp.challenge.msaddress.domain;
+package com.compassuol.sp.challenge.msaddress.domain.Entity;
 
 
 import jakarta.persistence.Column;
