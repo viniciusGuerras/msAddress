@@ -1,20 +1,22 @@
 package com.compassuol.sp.challenge.msaddress.domain.Entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "addresses")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Address {
+public class Address implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "cep", nullable = false)
     private String cep;
 
