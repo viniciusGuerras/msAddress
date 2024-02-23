@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Address {
     @Id
-    @Column(name = "cep")
+    @Column(name = "cep", nullable = false)
     private String cep;
 
     @Column(name = "logradouro")
