@@ -20,6 +20,11 @@ public class AddressService {
     private final CepConsumer cepConsumer;
 
     public void save(String cep) {
+
+        if(cep.charAt(5) == '-'){
+            cep = cep.replace("-", "");
+        }
+
         if (isCepValid(cep)){
             Address address = cepConsumer.getAddress(cep);
             address.setCep(cep);
