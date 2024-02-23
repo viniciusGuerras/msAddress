@@ -22,6 +22,7 @@ public class AddressService {
     public void save(String cep) {
         if (isCepValid(cep)){
             Address address = cepConsumer.getAddress(cep);
+            address.setCep(cep);
             addressRepository.save(address);
         }
         else {
