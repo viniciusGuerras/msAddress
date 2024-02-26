@@ -1,21 +1,23 @@
-package com.compassuol.sp.challenge.msaddress.domain;
+package com.compassuol.sp.challenge.msaddress.domain.Entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "addresses")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Address {
+public class Address implements Serializable {
     @Id
-    @Column(name = "cep")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "cep", nullable = false)
     private String cep;
 
     @Column(name = "logradouro")
@@ -33,17 +35,8 @@ public class Address {
     @Column(name = "uf")
     private String uf;
 
-    @Column(name = "ibge")
-    private String ibge;
-
-    @Column(name = "gia")
-    private String gia;
-
     @Column(name = "ddd")
     private String ddd;
-
-    @Column(name = "siafi")
-    private String siafi;
 
 }
 

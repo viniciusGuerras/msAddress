@@ -18,3 +18,5 @@ spring:
       hibernate.format_sql: false
     hibernate:
       ddl-auto: update
+server:
+  port: 8081
