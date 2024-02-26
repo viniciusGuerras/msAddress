@@ -35,17 +35,8 @@ public class Address implements Serializable {
     @Column(name = "uf")
     private String uf;
 
-    @Column(name = "ibge")
-    private String ibge;
-
-    @Column(name = "gia")
-    private String gia;
-
     @Column(name = "ddd")
     private String ddd;
-
-    @Column(name = "siafi")
-    private String siafi;
 
 }
 
