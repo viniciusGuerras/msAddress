@@ -4,6 +4,7 @@ import com.compassuol.sp.challenge.msaddress.domain.Entity.Address;
 import com.compassuol.sp.challenge.msaddress.domain.exception.CepNotValidException;
 import com.compassuol.sp.challenge.msaddress.domain.repository.AddressRepository;
 import com.compassuol.sp.challenge.msaddress.openfeign.CepConsumer;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,22 +14,26 @@ import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AddressService {
 
     private final AddressRepository addressRepository;
 
     private final CepConsumer cepConsumer;
 
-    public void save(String cep) {
-
-        if(cep.charAt(5) == '-'){
-            cep = cep.replace("-", "");
-        }
-
+    public Long save(String cep) {
+        cep = cep.replace("-", "");
         if (isCepValid(cep)){
-            Address address = cepConsumer.getAddress(cep);
-            address.setCep(cep);
-            addressRepository.save(address);
+            Address address =  addressRepository.findByCep(cep);
+            if (address == null){
+                Address foundAddress = cepConsumer.getAddress(cep);
+                foundAddress.setCep(cep);
+                return addressRepository.save(foundAddress).getId();
+            }
+            else {
+                return address.getId();
+            }
+
         }
         else {
             throw new CepNotValidException("Incorrect Cep Format");
