@@ -1,10 +1,9 @@
 package com.compassuol.sp.challenge.msaddress.domain.service;
 
-import com.compassuol.sp.challenge.msaddress.domain.Entity.Address;
+import com.compassuol.sp.challenge.msaddress.domain.model.Address;
 import com.compassuol.sp.challenge.msaddress.domain.exception.CepNotValidException;
 import com.compassuol.sp.challenge.msaddress.domain.repository.AddressRepository;
 import com.compassuol.sp.challenge.msaddress.openfeign.CepConsumer;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,9 +21,13 @@ public class AddressService {
     private final CepConsumer cepConsumer;
 
     public Long save(String cep) {
+
         cep = cep.replace("-", "");
+
         if (isCepValid(cep)){
+
             Address address =  addressRepository.findByCep(cep);
+
             if (address == null){
                 Address foundAddress = cepConsumer.getAddress(cep);
                 foundAddress.setCep(cep);
