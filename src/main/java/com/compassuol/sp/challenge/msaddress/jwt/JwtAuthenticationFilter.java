@@ -37,24 +37,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
         final String authHeader = request.getHeader(JWT_AUTHORIZATION);
 
-        //log.error(authHeader);
-
-        /*if (!authHeader.startsWith(JWT_BEARER)) {
+        if (!authHeader.startsWith(JWT_BEARER)) {
             filterChain.doFilter(request, response);
             return;
-        }*/
+        }
 
-
-        //log.error(token);
-
-        String email = service.extractEmail(authHeader);
-
-        log.error(email);
+        String token = authHeader.substring(JWT_BEARER.length());
+        String email = service.extractEmail(token);
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            log.error(String.valueOf(service.validateToken(authHeader)));
-            if (service.validateToken(authHeader)) {
-                PreAuthenticatedAuthenticationToken authToken = new PreAuthenticatedAuthenticationToken(authHeader, null);
+            if (service.validateToken(token)) {
+                PreAuthenticatedAuthenticationToken authToken = new PreAuthenticatedAuthenticationToken(token, null, null);
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
