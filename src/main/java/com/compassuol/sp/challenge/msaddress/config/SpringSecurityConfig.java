@@ -27,7 +27,7 @@ public class SpringSecurityConfig {
 
     private static final String[] DOCUMENTATION_OPENAPI = {
             "/docs/index.html",
-            "/msuser.html", "/msuser/**",
+            "/msaddress.html", "/msaddress/**",
             "/swagger-ui-custom.html", "/swagger-vi.html", "/swagger-ui/**",
             "/**.html", "/webjars/**", "/configuration/**", "/swagger-resources/**"
     };
@@ -38,13 +38,13 @@ public class SpringSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(DOCUMENTATION_OPENAPI).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class
                 ).exceptionHandling(ex -> ex
                         .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                 ).build();
