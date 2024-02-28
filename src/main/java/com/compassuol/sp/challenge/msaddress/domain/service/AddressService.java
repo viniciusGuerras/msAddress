@@ -21,9 +21,13 @@ public class AddressService {
     private final CepConsumer cepConsumer;
 
     public Long save(String cep) {
+
         cep = cep.replace("-", "");
+
         if (isCepValid(cep)){
+
             Address address =  addressRepository.findByCep(cep);
+
             if (address == null){
                 Address foundAddress = cepConsumer.getAddress(cep);
                 foundAddress.setCep(cep);
