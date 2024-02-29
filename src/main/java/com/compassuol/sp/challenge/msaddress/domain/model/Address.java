@@ -1,6 +1,8 @@
 package com.compassuol.sp.challenge.msaddress.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +39,14 @@ public class Address implements Serializable {
 
     @Column(name = "ddd")
     private String ddd;
+
+    @JsonIgnore
+    private boolean error;
+
+    @JsonProperty("erro")
+    public void setError(boolean erro) {
+        this.error = erro;
+    }
 
 }
 

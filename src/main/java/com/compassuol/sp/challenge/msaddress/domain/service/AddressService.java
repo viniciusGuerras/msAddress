@@ -1,5 +1,6 @@
 package com.compassuol.sp.challenge.msaddress.domain.service;
 
+import com.compassuol.sp.challenge.msaddress.domain.exception.CepNotFoundException;
 import com.compassuol.sp.challenge.msaddress.domain.model.Address;
 import com.compassuol.sp.challenge.msaddress.domain.exception.CepNotValidException;
 import com.compassuol.sp.challenge.msaddress.domain.repository.AddressRepository;
@@ -30,13 +31,17 @@ public class AddressService {
 
             if (address == null){
                 Address foundAddress = cepConsumer.getAddress(cep);
+
+                if(foundAddress.isError()){
+                    throw new CepNotFoundException("Cep not valid");
+                }
+
                 foundAddress.setCep(cep);
                 return addressRepository.save(foundAddress).getId();
             }
             else {
                 return address.getId();
             }
-
         }
         else {
             throw new CepNotValidException("Incorrect Cep Format");
