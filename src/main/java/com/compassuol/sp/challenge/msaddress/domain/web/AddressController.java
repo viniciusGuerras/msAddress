@@ -1,5 +1,6 @@
 package com.compassuol.sp.challenge.msaddress.domain.web;
 
+import com.compassuol.sp.challenge.msaddress.domain.exception.CepNotFoundException;
 import com.compassuol.sp.challenge.msaddress.domain.service.AddressService;
 
 import com.compassuol.sp.challenge.msaddress.domain.web.dto.AddressResponseDto;
@@ -22,20 +23,22 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Address Controller", description = "Endpoints for managing addresses")
 public class AddressController {
 
-    public final AddressService addressService;
-
     @Operation(
             summary = "Saves address",
             description = "Saves a new address in the database",
             security = @SecurityRequirement(name = "bearerAuth"),
             responses = {
                     @ApiResponse(responseCode = "201", description = "Address saved"
-                            , content = @Content(mediaType = "application/json", schema = @Schema(implementation = AddressResponseDto.class)))
-
+                            , content = @Content(mediaType = "application/json", schema = @Schema(implementation = AddressResponseDto.class))),
+                    @ApiResponse(responseCode = "404", description = "Cep not found"
+                            ,content = @Content(mediaType = "application/json", schema = @Schema(implementation = CepNotFoundException.class))
+                    )
             })
     @PostMapping()
     public ResponseEntity<AddressResponseDto> saveAddress(@RequestBody CepDto cep){
         Long id =  addressService.save(CepMapper.toCep(cep));
         return ResponseEntity.ok().body(AddressMapper.toDto(id));
     }
+
+    public final AddressService addressService;
 }
