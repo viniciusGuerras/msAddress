@@ -47,6 +47,7 @@ to use the endpoint you need a Jwt token provided in the User microservice.
 POST http://localhost:8080/v1/address
 Content-Type: application/json
 
+body:
 {
     "cep": "00000-000"
 }
