@@ -18,3 +18,13 @@ spring:
       hibernate.format_sql: false
     hibernate:
       ddl-auto: update
+
+springdoc:
+  swagger-ui:
+    path: /msaddress.html
+  api-docs:
+    path: /msaddress
+  packages-to-scan: com.compassuol.sp.challenge.msaddress.domain.web
+
+server:
+  port: 8081
