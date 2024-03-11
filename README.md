@@ -9,8 +9,6 @@ This is a java API powered by Spring boot that provides the functions of an Addr
 - External API calls
 
 
-It was part of `Challenge - 3` from my internship at [compassuol](https://compass.uol/pt/home/)
-
 | Technologies Used  |            |
 |--------------------|------------|
 | Spring Boot        |            |
@@ -37,6 +35,9 @@ Contributors: Vinicius Guerra
 3. **Setup Database:**
     - You might want to look into `applications.yml` to make changes to the port and set up your database.
 
+4. **Setup RabbitMq**
+   - Run the RabbitMq server using this docker command in the terminal:
+   docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.9-management
 
 ### Save Address
 
